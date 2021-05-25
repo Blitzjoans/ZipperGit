@@ -12,7 +12,7 @@ namespace Game.Zipper
         [SerializeField] private BasicZipper _basicZipper;
 
         private Vector2 _lastMousePos;
-        private Vector2 _startingPos;
+        private Vector2 _lastHandlePos;
 
         private void Start()
         {
@@ -39,13 +39,13 @@ namespace Game.Zipper
                 _rectTransform.position = _oldPos;
 
             _lastMousePos = _currentMousePos;
-
+            
             _basicZipper.progress = Vector2.Distance(transform.localPosition, _basicZipper.startPos);
         }
 
         public void OnEndDrag(PointerEventData eventData)
         {
-
+            _lastHandlePos = eventData.position;
         }
 
         private bool IsRectTransformInsideSreen(RectTransform rectTransform)
