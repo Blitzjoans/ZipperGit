@@ -33,12 +33,14 @@ namespace Game.Zipper
             Vector3 _newPos = _rectTransform.position + new Vector3(_offset.x, _offset.y, transform.position.z);
             Vector3 _oldPos = _rectTransform.position;
 
-            _rectTransform.position = _newPos;
+            _rectTransform.position = new Vector3(_newPos.x, _rectTransform.transform.position.y, _rectTransform.transform.position.z);
 
-            if (!IsRectTransformInsideSreen(_rectTransform))
+            if (!IsRectTransformInsideSreen(_rectTransform) || transform.localPosition.x < _basicZipper.startPos.x || transform.localPosition.x > _basicZipper.endPos.x)
                 _rectTransform.position = _oldPos;
 
             _lastMousePos = _currentMousePos;
+
+            _basicZipper.progress = Vector2.Distance(transform.localPosition, _basicZipper.startPos);
         }
 
         public void OnEndDrag(PointerEventData eventData)

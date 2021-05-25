@@ -8,6 +8,8 @@ namespace Game.Zipper
     public class BasicZipper : MonoBehaviour
     {
         [Title("Parameters")]
+        [SerializeField] private float _distance;
+        [SerializeField] private float _progress;
         [SerializeField] private float _speed = 1f;
         [SerializeField] private Vector2 _startPos;
         [SerializeField] private Vector2 _endPos;
@@ -19,8 +21,18 @@ namespace Game.Zipper
 
         #region Properties
         public Vector2 startPos => _startPos;
-        public Vector2 endPos => _endPos; 
+        public Vector2 endPos => _endPos;
+        public float progress
+        {
+            get => _progress;
+            set { _progress = value; }
+        }
         #endregion
+
+        private void Start()
+        {
+            _distance = Vector2.Distance(_startPos, _endPos);
+        }
 
         private void OnDrawGizmos()
         {
