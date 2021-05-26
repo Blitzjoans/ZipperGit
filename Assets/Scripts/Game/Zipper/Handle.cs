@@ -1,10 +1,8 @@
-using System.Collections.Generic;
 using UnityEngine.EventSystems;
 using Sirenix.OdinInspector;
-using System.Collections;
 using UnityEngine;
 
-namespace Game.Zipper
+namespace ZipperGit.Game.ZipperBehaviour
 {
     public class Handle : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
     {
