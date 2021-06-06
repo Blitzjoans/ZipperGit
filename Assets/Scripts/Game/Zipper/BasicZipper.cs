@@ -45,11 +45,27 @@ namespace ZipperGit.Game.ZipperBehaviour
             }
         }
 
+        private List<Vector2> _topPartJoints;
+        private List<Vector2> _bottomPartJoints;
+
         #endregion
 
         private void Start()
         {
             _distance = Vector2.Distance(_startPos, _endPos);
+
+
+            _topPartJoints = new List<Vector2>(_topPart.settings.polyVertices.Length);
+            for (int i = 0; i < _topPart.settings.polyVertices.Length; i++)
+            {
+                _topPartJoints.Add(_topPart.settings.polyVertices[i]);
+            }
+
+            _bottomPartJoints = new List<Vector2>(_bottomPart.settings.polyVertices.Length);
+            for (int i = 0; i < _bottomPart.settings.polyVertices.Length; i++)
+            {
+                _bottomPartJoints.Add(_bottomPart.settings.polyVertices[i]);
+            }
         }
 
         private void UpdateZipper(float newProgress)
@@ -77,8 +93,13 @@ namespace ZipperGit.Game.ZipperBehaviour
                 Gizmos.matrix = _mainCanvas.localToWorldMatrix;
                 for (int i = 0; i < _topJoints.Count; i++)
                 {
-                    Gizmos.DrawSphere(_topJoints[i].startingPos, _jointGizmosRadius);
-                    Gizmos.DrawWireSphere(_topJoints[i].endingPos, _jointGizmosRadius);
+                    Vector3 coordStartPosition = new Vector3((_topJoints[i].startingPos.x * _topPart.GetComponent<RectTransform>().rect.width) / 0.5f, 
+                        (_topJoints[i].startingPos.y * _topPart.GetComponent<RectTransform>().rect.height) / 0.5f); 
+                    Gizmos.DrawSphere(coordStartPosition , _jointGizmosRadius);
+
+                    Vector3 coordEndPostion = new Vector3((_topJoints[i].endingPos.x * _topPart.GetComponent<RectTransform>().rect.width) / 0.5f,
+                        (_topJoints[i].endingPos.y * _topPart.GetComponent<RectTransform>().rect.height) / 0.5f);
+                    Gizmos.DrawWireSphere(coordEndPostion, _jointGizmosRadius);
                 }
             }
 
@@ -89,8 +110,13 @@ namespace ZipperGit.Game.ZipperBehaviour
                 Gizmos.matrix = _mainCanvas.localToWorldMatrix;
                 for (int i = 0; i < _bottomJoints.Count; i++)
                 {
-                    Gizmos.DrawSphere(_bottomJoints[i].startingPos, _jointGizmosRadius);
-                    Gizmos.DrawWireSphere(_bottomJoints[i].endingPos, _jointGizmosRadius);
+                    Vector3 coordStartPosition = new Vector3((_bottomJoints[i].startingPos.x * _topPart.GetComponent<RectTransform>().rect.width) / 0.5f,
+                        (_bottomJoints[i].startingPos.y * _topPart.GetComponent<RectTransform>().rect.height) / 0.5f);
+                    Gizmos.DrawSphere(coordStartPosition, _jointGizmosRadius);
+
+                    Vector3 coordEndPostion = new Vector3((_bottomJoints[i].endingPos.x * _topPart.GetComponent<RectTransform>().rect.width) / 0.5f,
+                        (_bottomJoints[i].endingPos.y * _topPart.GetComponent<RectTransform>().rect.height) / 0.5f);
+                    Gizmos.DrawWireSphere(coordEndPostion, _jointGizmosRadius);
                 }
             }
         } 
